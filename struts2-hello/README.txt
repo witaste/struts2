@@ -1,0 +1,1 @@
+1. struts.xml  命名空间影响url路径

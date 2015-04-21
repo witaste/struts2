@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60000" debug="false">
+
+	<property resource="config.properties" />
+	<property name="REGEX" value="sss" />
+	<!-- ======================== -->
+	<!-- 控制台日志 -->
+	<!-- ======================== -->
+
+	<appender name="${logback.console.name}" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<!-- 默认 <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator"> -->
+			<evaluator>
+				<matcher>
+					<Name>myMatcher</Name>
+					<regex>${REGEX}</regex>
+				</matcher>
+				<expression>return myMatcher.matches(message);</expression>
+			</evaluator>
+			<OnMatch>ACCEPT</OnMatch>
+			<OnMismatch>DENY</OnMismatch>
+		</filter>
+	</appender>
+
+	<!-- ======================== -->
+	<!-- 文件日志 -->
+	<!-- ======================== -->
+	<appender name="${logback.file.name}"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator>
+				<matcher>
+					<Name>myMatcher</Name>
+					<regex>${REGEX}</regex>
+				</matcher>
+				<expression>return myMatcher.matches(message);</expression>
+			</evaluator>
+			<OnMatch>ACCEPT</OnMatch>
+			<OnMismatch>DENY</OnMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${catalina.base}/logs/%d{yyyy-MM-dd}/${CONTEXT_NAME}.log.txt
+			</FileNamePattern>
+			<MaxHistory>1</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>10mb</MaxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- ======================== -->
+	<!-- logger -->
+	<!-- ======================== -->
+	<logger name="com.base22" level="TRACE" />
+	<logger name="cn.zxg.example" level="INFO" />
+
+	<!-- ======================== -->
+	<!-- root -->
+	<!-- ======================== -->
+	<root level="trace">
+		<appender-ref ref="${logback.console.name}" />
+		<appender-ref ref="${logback.file.name}" />
+	</root>
+</configuration>

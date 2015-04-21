@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<!-- package name 影响继承，namespace 影响访问路径 -->
+    <package name="hh" namespace="/h1" extends="struts-default">
+
+        <action name="hello!*" method="{1}" class="cn.zxg.Hello">
+            <result type="dispatcher">/jsp/Hello.jsp</result>
+        </action>
+
+    </package>
+    
+</struts>
