@@ -7,7 +7,7 @@
     <package name="hh" namespace="/h1" extends="struts-default">
 
         <action name="hello!*" method="{1}" class="cn.zxg.Hello">
-            <result type="dispatcher">/jsp/Hello.jsp</result>
+            <result type="dispatcher">/jsp/pages/Hello.jsp</result>
         </action>
 
     </package>

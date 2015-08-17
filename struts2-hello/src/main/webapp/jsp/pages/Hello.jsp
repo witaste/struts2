@@ -2,8 +2,9 @@
 <html>
 <head>
 <title>Insert title here</title>
+<%@ include file="/jsp/common/include/easyui_nopager.jsp" %>
 </head>
 <body>
-		Hello  World !!
+		<input class="easyui-datebox"  id="searchDataCode" style="width:150px">
 </body>
 </html>
